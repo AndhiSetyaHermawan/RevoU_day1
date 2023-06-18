@@ -5,36 +5,30 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Kalkulator Suhu</h1>
-
-    <div class="input-container">
-      <p>Masukkan suhu derajat Celcius (°C) ke kotak di bawah ini, lalu klik tombol Konversi untuk mendapatkan hasil konversi dalam bentuk Fahrenhelt (°F).</p>
-
-      <div class="input-group">
-        <label for="temperature">Celcius (°C):</label>
-        <input type="text" id="temperature" name="temperature" placeholder="Masukkan suhu...">
-      </div>
-
-      <div class="button-group">
-        <button type="submit" class="convert-btn">Konversi</button>
-        <button type="button" class="reset-btn" onclick="resetForm()">Reset</button>
-        <button type="button" class="reverse-btn" onclick="reverseConversion()">Reserve</button>
-      </div>
+  <h1>Kalkulator Suhu</h1>
+  
+  <p>Masukkan suhu derajat Celcius (°C) ke kotak di bawah ini, lalu klik tombol Konversi untuk mendapatkan hasil konversi dalam bentuk Fahrenhelt (°F).</p>
+  
+  <form id="temperatureForm">
+    <label for="temperature">Celcius (°C):</label>
+    <input type="text" id="temperature" name="temperature" placeholder="Masukkan suhu...">
+    
+    <div class="buttons">
+      <button type="submit">Konversi</button>
+      <button type="button" onclick="resetForm()">Reset</button>
+      <button type="button" onclick="reverseConversion()">Reserve</button>
     </div>
-
-    <div class="result-container">
-      <h2>Fahrenhelt (°F)</h2>
-      <div id="result"></div>
-    </div>
-
-    <div class="conversion-info">
-      <h3>Cara Konversi dari Celcius ke Fahrenhelt:</h3>
-      <p>Suhu S dalam derajat Fahrenhelt (°F) sama dengan suhu S dalam derajat Celcius (°C) kali 9/5 tambah 32.</p>
-      <p><strong>Rumus:</strong> F = (C × 9/5) + 32</p>
-    </div>
+  </form>
+  
+  <h2>Fahrenhelt (°F)</h2>
+  <div id="result"></div>
+  
+  <div id="conversionInfo">
+    <h3>Cara Konversi dari Celcius ke Fahrenhelt:</h3>
+    <p>Suhu S dalam derajat Fahrenhelt (°F) sama dengan suhu S dalam derajat Celcius (°C) kali 9/5 tambah 32.</p>
+    <p><strong>Rumus:</strong> F = (C × 9/5) + 32</p>
   </div>
 
-  <script src="js/script.js" type="text/javascript"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
