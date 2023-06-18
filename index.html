@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Test</title>
-    </head>
-    <body>
-        <h2>HELLO WORLD!</h2>
-    </body>
+<head>
+  <title>Kalkulator Suhu</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+  <h1>Kalkulator Suhu</h1>
+  
+  <form id="temperatureForm">
+    <label for="temperature">Suhu:</label>
+    <input type="text" id="temperature" name="temperature" placeholder="Masukkan suhu...">
+    
+    <label for="conversionType">Konversi ke:</label>
+    <select id="conversionType" name="conversionType">
+      <option value="celcius">Celcius</option>
+      <option value="fahrenheit">Fahrenheit</option>
+    </select>
+    
+    <button type="submit">Konversi</button>
+  </form>
+  
+  <div id="result"></div>
+
+  <script src="js/script.js"></script>
+</body>
 </html>
