@@ -1,24 +1,53 @@
 body {
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  form {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  label, select, input, button {
-    display: block;
-    margin: 10px auto;
-  }
-  
-  #result {
-    text-align: center;
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 20px;
-  }  
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label, input {
+  display: block;
+  margin: 10px auto;
+}
+
+.buttons {
+  text-align: center;
+}
+
+button {
+  margin: 5px;
+}
+
+h2 {
+  text-align: center;
+}
+
+#result {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+#conversionInfo {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#conversionInfo h3 {
+  margin-bottom: 10px;
+}
+
+#conversionInfo p {
+  margin: 5px;
+}
