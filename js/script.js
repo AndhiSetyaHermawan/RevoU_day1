@@ -8,14 +8,14 @@ document.getElementById("temperatureForm").addEventListener("submit", function(e
   if (isNaN(temperature)) {
     result = "Masukkan suhu yang valid!";
   } else {
-    result = "Hasil konversi: " + convertToFahrenheit(temperature) + " Fahrenheit";
+    result = "Hasil konversi: " + convertToFahrenheit(temperature).toFixed(2) + " Fahrenheit";
   }
 
   resultElement.innerHTML = result;
 });
 
-function convertToFahrenheit(celcius) {
-  return (celcius * 9/5) + 32;
+function convertToFahrenheit(celsius) {
+  return (celsius * 9/5) + 32;
 }
 
 function resetForm() {
@@ -31,12 +31,12 @@ function reverseConversion() {
   if (isNaN(temperature)) {
     result = "Masukkan suhu yang valid!";
   } else {
-    result = "Hasil konversi: " + convertToCelcius(temperature) + " Celcius";
+    result = "Hasil konversi: " + convertToCelsius(temperature).toFixed(2) + " Celcius";
   }
 
   resultElement.innerHTML = result;
 }
 
-function convertToCelcius(fahrenheit) {
+function convertToCelsius(fahrenheit) {
   return (fahrenheit - 32) * 5/9;
 }
