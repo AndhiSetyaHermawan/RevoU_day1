@@ -1,61 +1,70 @@
-// Event listener untuk tombol Konversi
-document.getElementById("konversiBtn").addEventListener("click", function(event) {
-  event.preventDefault(); // Menghentikan pengiriman formulir
+// Tangkap formulir suhu dan tombol reset/reserve
+var temperatureForm = document.getElementById("temperatureForm");
+var resetBtn = document.getElementById("resetBtn");
+var reverseBtn = document.getElementById("reverseBtn");
 
-  // Mendapatkan nilai suhu dari input
-  var temperature = parseFloat(document.getElementById("temperature").value);
-  var resultElement = document.getElementById("result");
-  var result;
+// Tambahkan event listener untuk acara pengiriman formulir
+temperatureForm.addEventListener("submit", function(event) {
+  event.preventDefault(); // Mencegah pengiriman formulir
 
-  // Validasi input suhu
-  if (isNaN(temperature)) {
-    result = "Masukkan suhu yang valid!";
-  } else {
-    // Melakukan konversi suhu ke Fahrenheit
-    result = "Hasil konversi: " + convertToFahrenheit(temperature).toFixed(2) + " Fahrenheit";
-  }
-
-  // Menampilkan hasil konversi
-  resultElement.innerHTML = result;
-});
-
-// Event listener untuk tombol Reset
-document.getElementById("resetBtn").addEventListener("click", function(event) {
-  event.preventDefault(); // Menghentikan pengiriman formulir
-  resetForm();
-});
-
-// Event listener untuk tombol Reserve
-document.getElementById("reverseBtn").addEventListener("click", function(event) {
-  event.preventDefault(); // Menghentikan pengiriman formulir
-  reverseConversion();
-});
-
-// Fungsi untuk konversi suhu ke Fahrenheit
-function convertToFahrenheit(celsius) {
-  return (celsius * 9/5) + 32;
-}
-
-// Fungsi untuk mereset formulir
-function resetForm() {
-  document.getElementById("temperature").value = "";
-  document.getElementById("result").innerHTML = "";
-}
-
-// Fungsi untuk membalik konversi dari Fahrenheit ke Celcius
-function reverseConversion() {
-  var temperature = parseFloat(document.getElementById("temperature").value);
-  var resultElement = document.getElementById("result");
-  var result;
+  // Dapatkan nilai suhu dan unit dari input
+  var temperatureInput = parseFloat(document.getElementById("temperatureInput").value);
+  var unitSelect = document.getElementById("unitSelect").value;
+  var conversionResult = document.getElementById("conversionResult");
 
   // Validasi input suhu
-  if (isNaN(temperature)) {
-    result = "Masukkan suhu yang valid!";
-  } else {
-    // Melakukan konversi suhu ke Celcius
-    result = "Hasil konversi: " + convertToCelsius(temperature).toFixed(2) + " Celcius";
+  if (isNaN(temperatureInput)) {
+    conversionResult.textContent = "Masukkan suhu yang valid!";
+    conversionResult.style.border = "none"; // Hapus border jika input tidak valid
+    return;
   }
 
-  // Menampilkan hasil konversi
-  resultElement.innerHTML = result;
-}
+  // Konversi suhu berdasarkan unit yang dipilih
+  var result;
+  var formula;
+  if (unitSelect === "celsius") {
+    result = (temperatureInput * 9/5) + 32;
+    formula = "(" + temperatureInput + " × 9/5) + 32";
+    conversionResult.textContent = "Input suhu: " + temperatureInput + "°C\n" +
+                                   "Hasil konversi: " + formula + " = " + result.toFixed(2) + "°F";
+    conversionResult.style.border = "1px solid #ccc"; // Tambahkan border pada kotak hasil konversi
+  } else if (unitSelect === "fahrenheit") {
+    result = (temperatureInput - 32) * 5/9;
+    formula = "(" + temperatureInput + " - 32) × 5/9";
+    conversionResult.textContent = "Input suhu: " + temperatureInput + "°F\n" +
+                                   "Hasil konversi: " + formula + " = " + result.toFixed(2) + "°C";
+    conversionResult.style.border = "1px solid #ccc"; // Tambahkan border pada kotak hasil konversi
+  }
+});
+
+// Tambahkan event listener untuk tombol reset
+resetBtn.addEventListener("click", function(event) {
+  event.preventDefault(); // Mencegah pengiriman formulir
+  var conversionResult = document.getElementById("conversionResult");
+  conversionResult.style.border = "none"; // Hapus border saat mereset formulir
+  document.getElementById("temperatureInput").value = "";
+  conversionResult.textContent = "";
+});
+
+// Tambahkan event listener untuk tombol reserve
+reverseBtn.addEventListener("click", function(event) {
+  event.preventDefault(); // Mencegah pengiriman formulir
+  var conversionResult = document.getElementById("conversionResult");
+  var resultText = conversionResult.textContent;
+
+  if (resultText.includes("°C")) {
+    var fahrenheit = parseFloat(resultText.split("=")[1]);
+    var celsius = (fahrenheit - 32) * 5/9;
+    var formula = "(" + fahrenheit.toFixed(2) + " - 32) × 5/9";
+    conversionResult.textContent = "Input suhu: " + fahrenheit.toFixed(2) + "°F\n" +
+                                   "Hasil konversi: " + formula + " = " + celsius.toFixed(2) + "°C";
+    conversionResult.title = "Formula konversi Fahrenheit ke Celsius: " + formula + " = " + celsius.toFixed(2);
+  } else if (resultText.includes("°F")) {
+    var celsius = parseFloat(resultText.split("=")[1]);
+    var fahrenheit = (celsius * 9/5) + 32;
+    var formula = "(" + celsius.toFixed(2) + " × 9/5) + 32";
+    conversionResult.textContent = "Input suhu: " + celsius.toFixed(2) + "°C\n" +
+                                   "Hasil konversi: " + formula + " = " + fahrenheit.toFixed(2) + "°F";
+    conversionResult.title = "Formula konversi Celsius ke Fahrenheit: " + formula + " = " + fahrenheit.toFixed(2);
+  }
+});
