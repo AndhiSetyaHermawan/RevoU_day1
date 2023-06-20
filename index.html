@@ -1,38 +1,60 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Konversi Suhu</title>
   <link rel="stylesheet" href="css/style.css">
+  <title>Konversi Suhu</title>
 </head>
 
 <body>
-  <header>
-    <h1>Konversi Suhu</h1>
-  </header>
+  <div class="container">
+    <div class="header">
+      <h1>Website Konversi Suhu</h1>
+    </div>
 
-  <main>
-    <form id="temperatureForm">
-      <div class="input-group">
-        <label for="temperatureInput">Suhu:</label>
-        <input type="number" id="temperatureInput" placeholder="Masukkan suhu" required>
-      </div>
-      <div class="input-group">
-        <label for="unitSelect">Unit:</label>
-        <select id="unitSelect" required>
-          <option value="celsius">Celsius</option>
-          <option value="fahrenheit">Fahrenheit</option>
-        </select>
-      </div>
-      <button type="submit" id="konversiBtn">Konversi</button>
-      <button type="button" id="resetBtn">Reset</button>
-      <button type="button" id="reverseBtn">Reserve</button>
-    </form>
+    <hr class="divider">
 
-    <div id="conversionResult"></div>
-  </main>
+    <div class="content">
+      <h2>Masukkan suhu derajat <span class="unit">Celsius (°C)</span> ke kotak di bawah, lalu klik tombol Konversi
+        untuk mendapatkan hasil konversi dalam bentuk <span id="conversion" class="unit">Fahrenheit (°F)</span>.</h2>
+
+      <div class="input-container">
+        <label for="temperature">Input suhu:</label>
+        <input type="number" id="temperature" placeholder="Masukkan suhu dalam Celsius" required>
+      </div>
+
+      <div class="button-container">
+        <button id="convertBtn" class="btn">Konversi</button>
+        <button id="resetBtn" class="btn">Reset</button>
+        <button id="reverseBtn" class="btn">Reserve</button>
+      </div>
+
+      <div class="result-container">
+        <h3>Hasil konversi:</h3>
+        <div id="result" class="result"></div>
+      </div>
+
+      <div class="calculation-container">
+        <h3>Cara Kalkulasi:</h3>
+        <div id="calculation" class="calculation"></div>
+      </div>
+
+      <div class="link-container">
+        <a href="#" id="reverseLink">Fahrenheit (°F) ke Celsius (°C)</a>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="footer">
+      <footer>
+        <p>Mini Project ini saya buat sendiri sebagai syarat kelulusan Fundamental Course Software Engineering RevoU
+          tanggal 23 Juni 2023. Calon Programmer Andhi Setya Hermawan.</p>
+      </footer>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>

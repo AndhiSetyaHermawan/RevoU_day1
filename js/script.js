@@ -1,70 +1,76 @@
-// Tangkap formulir suhu dan tombol reset/reserve
-var temperatureForm = document.getElementById("temperatureForm");
-var resetBtn = document.getElementById("resetBtn");
-var reverseBtn = document.getElementById("reverseBtn");
+// Element DOM
+const temperatureInput = document.getElementById("temperature");
+const convertBtn = document.getElementById("convertBtn");
+const resetBtn = document.getElementById("resetBtn");
+const reverseBtn = document.getElementById("reverseBtn");
+const resultContainer = document.getElementById("result");
+const calculationContainer = document.getElementById("calculation");
+const reverseLink = document.getElementById("reverseLink");
+const unitCelsius = document.querySelectorAll(".unit");
 
-// Tambahkan event listener untuk acara pengiriman formulir
-temperatureForm.addEventListener("submit", function(event) {
-  event.preventDefault(); // Mencegah pengiriman formulir
+// Konversi Celsius ke Fahrenheit
+function celsiusToFahrenheit(celsius) {
+  return (celsius * 9 / 5) + 32;
+}
 
-  // Dapatkan nilai suhu dan unit dari input
-  var temperatureInput = parseFloat(document.getElementById("temperatureInput").value);
-  var unitSelect = document.getElementById("unitSelect").value;
-  var conversionResult = document.getElementById("conversionResult");
+// Konversi Fahrenheit ke Celsius
+function fahrenheitToCelsius(fahrenheit) {
+  return (fahrenheit - 32) * 5 / 9;
+}
 
-  // Validasi input suhu
-  if (isNaN(temperatureInput)) {
-    conversionResult.textContent = "Masukkan suhu yang valid!";
-    conversionResult.style.border = "none"; // Hapus border jika input tidak valid
-    return;
+// Validasi Input
+function validateInput(input) {
+  if (isNaN(input)) {
+    alert("Input harus berupa angka!");
+    return false;
   }
+  return true;
+}
 
-  // Konversi suhu berdasarkan unit yang dipilih
-  var result;
-  var formula;
-  if (unitSelect === "celsius") {
-    result = (temperatureInput * 9/5) + 32;
-    formula = "(" + temperatureInput + " × 9/5) + 32";
-    conversionResult.textContent = "Input suhu: " + temperatureInput + "°C\n" +
-                                   "Hasil konversi: " + formula + " = " + result.toFixed(2) + "°F";
-    conversionResult.style.border = "1px solid #ccc"; // Tambahkan border pada kotak hasil konversi
-  } else if (unitSelect === "fahrenheit") {
-    result = (temperatureInput - 32) * 5/9;
-    formula = "(" + temperatureInput + " - 32) × 5/9";
-    conversionResult.textContent = "Input suhu: " + temperatureInput + "°F\n" +
-                                   "Hasil konversi: " + formula + " = " + result.toFixed(2) + "°C";
-    conversionResult.style.border = "1px solid #ccc"; // Tambahkan border pada kotak hasil konversi
+// Handler tombol Konversi
+function convertHandler() {
+  const temperature = parseFloat(temperatureInput.value);
+
+  if (validateInput(temperature)) {
+    const fahrenheit = celsiusToFahrenheit(temperature);
+    const calculation = `(${temperature} °C) * (9/5) + 32 = ${fahrenheit.toFixed(2)} °F`;
+
+    resultContainer.textContent = `${fahrenheit.toFixed(2)} °F`;
+    calculationContainer.textContent = calculation;
   }
-});
+}
 
-// Tambahkan event listener untuk tombol reset
-resetBtn.addEventListener("click", function(event) {
-  event.preventDefault(); // Mencegah pengiriman formulir
-  var conversionResult = document.getElementById("conversionResult");
-  conversionResult.style.border = "none"; // Hapus border saat mereset formulir
-  document.getElementById("temperatureInput").value = "";
-  conversionResult.textContent = "";
-});
+// Handler tombol Reset
+function resetHandler() {
+  temperatureInput.value = "";
+  resultContainer.textContent = "";
+  calculationContainer.textContent = "";
+}
 
-// Tambahkan event listener untuk tombol reserve
-reverseBtn.addEventListener("click", function(event) {
-  event.preventDefault(); // Mencegah pengiriman formulir
-  var conversionResult = document.getElementById("conversionResult");
-  var resultText = conversionResult.textContent;
+// Handler tombol Reserve
+function reverseHandler() {
+  const temperature = parseFloat(temperatureInput.value);
 
-  if (resultText.includes("°C")) {
-    var fahrenheit = parseFloat(resultText.split("=")[1]);
-    var celsius = (fahrenheit - 32) * 5/9;
-    var formula = "(" + fahrenheit.toFixed(2) + " - 32) × 5/9";
-    conversionResult.textContent = "Input suhu: " + fahrenheit.toFixed(2) + "°F\n" +
-                                   "Hasil konversi: " + formula + " = " + celsius.toFixed(2) + "°C";
-    conversionResult.title = "Formula konversi Fahrenheit ke Celsius: " + formula + " = " + celsius.toFixed(2);
-  } else if (resultText.includes("°F")) {
-    var celsius = parseFloat(resultText.split("=")[1]);
-    var fahrenheit = (celsius * 9/5) + 32;
-    var formula = "(" + celsius.toFixed(2) + " × 9/5) + 32";
-    conversionResult.textContent = "Input suhu: " + celsius.toFixed(2) + "°C\n" +
-                                   "Hasil konversi: " + formula + " = " + fahrenheit.toFixed(2) + "°F";
-    conversionResult.title = "Formula konversi Celsius ke Fahrenheit: " + formula + " = " + fahrenheit.toFixed(2);
+  if (validateInput(temperature)) {
+    const celsius = fahrenheitToCelsius(temperature);
+    const calculation = `(${temperature} °F - 32) * (5/9) = ${celsius.toFixed(2)} °C`;
+
+    resultContainer.textContent = `${celsius.toFixed(2)} °C`;
+    calculationContainer.textContent = calculation;
+    unitCelsius.forEach(unit => {
+      unit.textContent = "Celsius (°C)";
+    });
+    reverseLink.textContent = "Celsius (°C) ke Fahrenheit (°F)";
   }
+}
+
+// Event Listener
+convertBtn.addEventListener("click", convertHandler);
+resetBtn.addEventListener("click", resetHandler);
+reverseBtn.addEventListener("click", reverseHandler);
+
+// Event Listener untuk link Reverse
+reverseLink.addEventListener("click", function (e) {
+  e.preventDefault();
+  reverseHandler();
 });
